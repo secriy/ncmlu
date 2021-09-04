@@ -3,7 +3,7 @@ package util
 import (
 	"strings"
 
-	"github.com/mattn/go-colorable"
+	"github.com/natefinch/lumberjack"
 
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -15,12 +15,12 @@ func InitLogger(level string) {
 	// encoder config
 	encoderConfig := zap.NewProductionEncoderConfig()
 	encoderConfig.EncodeTime = zapcore.TimeEncoderOfLayout("2006-01-02 15:04:05.0000")
-	encoderConfig.EncodeLevel = zapcore.CapitalColorLevelEncoder
+	encoderConfig.EncodeLevel = zapcore.CapitalLevelEncoder
 
 	logger := zap.New(
 		zapcore.NewCore(
 			zapcore.NewConsoleEncoder(encoderConfig),
-			zapcore.AddSync(colorable.NewColorableStdout()),
+			zapcore.AddSync(getLogWriter()),
 			logLevel(level),
 		),
 		zap.AddCaller(),
@@ -43,4 +43,15 @@ func logLevel(level string) zapcore.Level {
 	default:
 		return zapcore.InfoLevel
 	}
+}
+
+func getLogWriter() zapcore.WriteSyncer {
+	lumberJackLogger := &lumberjack.Logger{
+		Filename:   "./ncmlu.log",
+		MaxSize:    10,
+		MaxBackups: 5,
+		MaxAge:     30,
+		Compress:   false,
+	}
+	return zapcore.AddSync(lumberJackLogger)
 }

@@ -1,4 +1,4 @@
-package ncmlu_api
+package ncm
 
 import (
 	"io/ioutil"

@@ -1,4 +1,4 @@
-package ncmlu_api
+package ncm
 
 type ResponseJSON struct {
 	Code    int `json:"code"`

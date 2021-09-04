@@ -1,4 +1,4 @@
-package ncmlu_api
+package ncm
 
 import (
 	"encoding/json"
@@ -76,9 +76,11 @@ func (ac *NCMAccount) Login(client *http.Client) {
 	}
 	// set id and name
 	ac.Uid, ac.Nickname = data.Account.ID, data.Profile.Nickname
-	util.Logger.Infof("用户[%s][%s]登录成功", ac.Phone, ac.Nickname)
-
 	ac.UserLevel(client)
+
+	util.Logger.Infof("用户[%s][%s]登录成功，当前等级 %d", ac.Phone, ac.Nickname, ac.Level)
+
+	util.Logger.Infof("用户[%s][%s]剩余登录天数：%d，剩余听歌数：%d", ac.Phone, ac.Nickname, ac.RemainLoginCount, ac.RemainPlayCount)
 }
 
 // Sign 签到
@@ -92,25 +94,24 @@ func (ac *NCMAccount) Sign(client *http.Client, tp int) {
 	// request
 	res, err := postRes(signURL, fmt.Sprintf("{\"type\": %d}", tp), client)
 	if err != nil {
-		util.Logger.Errorf(t+"签到失败: %s", err)
+		util.Logger.Errorf("用户[%s][%s]%s签到失败: %s", ac.Phone, ac.Nickname, t, err)
 		return
 	}
 	// serializer
 	data := ResponseJSON{}
 	if err = json.Unmarshal(res, &data); err != nil {
-		util.Logger.Errorf(t+"签到失败: %s", err)
+		util.Logger.Errorf("用户[%s][%s]%s签到失败: %s", ac.Phone, ac.Nickname, t, err)
 		return
 	}
 	// results
 	if data.Code == 200 {
-		util.Logger.Info(t + "签到成功")
+		util.Logger.Infof("用户[%s][%s]%s签到成功", ac.Phone, ac.Nickname, t)
 		return
 	} else if data.Code == -2 {
-		util.Logger.Info(t + "重复签到")
+		util.Logger.Infof("用户[%s][%s]%s重复签到", ac.Phone, ac.Nickname, t)
 		return
 	}
-	util.Logger.Error(t + "签到失败: " + string(res))
-	return
+	util.Logger.Errorf("用户[%s][%s]%s签到失败: %s", ac.Phone, ac.Nickname, t, string(res))
 }
 
 // UserLevel 用户等级
@@ -200,6 +201,6 @@ func (ac *NCMAccount) Feedback(client *http.Client) {
 	if jsonData.Code == 200 {
 		util.Logger.Infof("用户[%s][%s]刷听歌量成功", ac.Phone, ac.Nickname)
 	} else {
-		util.Logger.Errorf("用户[%s][%s]刷听歌量失败: %d", ac.Phone, ac.Nickname, jsonData.Code)
+		util.Logger.Errorf("用户[%s][%s]刷听歌量失败: %s", ac.Phone, ac.Nickname, string(res))
 	}
 }
