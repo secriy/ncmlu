@@ -58,7 +58,7 @@ func aesEncrypt(plain string, key string) (string, error) {
 func rsaEncrypt(key string, pubKey string, modulus string) string {
 	key = reverseStr([]byte(key)) // 翻转 key
 	hexRKey := ""
-	for _, char := range []rune(key) {
+	for _, char := range key {
 		hexRKey += fmt.Sprintf("%x", int(char))
 	}
 	bigRKey, _ := big.NewInt(0).SetString(hexRKey, 16)
