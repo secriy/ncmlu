@@ -1,8 +1,8 @@
-# ncmlu-api
+# ncmlu
 
 NCM 任务执行脚本，Go 版本。
 
-## Accomplish
+## Implements
 
 - ✅ 登录 
 - ✅ 签到

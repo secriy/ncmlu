@@ -3,9 +3,9 @@ package main
 import (
 	"time"
 
-	"github.com/secriy/ncmlu-api/config"
-	"github.com/secriy/ncmlu-api/ncm"
-	"github.com/secriy/ncmlu-api/util"
+	"github.com/secriy/ncmlu/config"
+	"github.com/secriy/ncmlu/ncm"
+	"github.com/secriy/ncmlu/util"
 )
 
 func main() {

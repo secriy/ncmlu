@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/secriy/ncmlu-api/util"
+	"github.com/secriy/ncmlu/util"
 )
 
 func NcmluTask(phone, passwd string, code int, play bool) {
