@@ -16,5 +16,7 @@
 # vendor/
 
 .idea/
+dist/
 *.yaml
 *.log
+*.bat
