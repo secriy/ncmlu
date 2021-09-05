@@ -153,6 +153,26 @@ func (ac *NCMAccount) RecommendList(client *http.Client) {
 	ac.PlayList = append(ac.PlayList, playList...)
 }
 
+// PersonalizedList 获取个性化推荐歌单列表
+func (ac *NCMAccount) PersonalizedList(client *http.Client) {
+	_url := "https://music.163.com/weapi/personalized/playlist"
+	res, err := postRes(_url, `{limit:10,total:true,n:1000}`, client)
+	if err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	data := PersonalizedJSON{}
+	if err := json.Unmarshal(res, &data); err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	playList := make([]int, len(data.Result))
+	for k, v := range data.Result {
+		playList[k] = v.ID
+	}
+	ac.PlayList = append(ac.PlayList, playList...)
+}
+
 // Musics 获取某一歌单中的所有歌曲
 func (ac *NCMAccount) Musics(client *http.Client, listID int) {
 	detailURL := "https://music.163.com/weapi/v6/playlist/detail?csrf_token=" + ac.Csrf

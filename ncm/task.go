@@ -3,9 +3,13 @@ package ncm
 import (
 	"bytes"
 	"encoding/json"
+	"math/rand"
+	"time"
 
 	"github.com/secriy/ncmlu/util"
 )
+
+const limit = 410
 
 func NcmluTask(phone, passwd string, code int, play bool) {
 	util.InitLogger("info")
@@ -24,7 +28,7 @@ func NcmluTask(phone, passwd string, code int, play bool) {
 
 	if play {
 		// 获取推荐歌单
-		acc.RecommendList(client)
+		acc.PersonalizedList(client)
 		if acc.PlayList == nil || len(acc.PlayList) == 0 {
 			return
 		}
@@ -35,8 +39,10 @@ func NcmluTask(phone, passwd string, code int, play bool) {
 		if acc.MusicList == nil || len(acc.MusicList) == 0 {
 			return
 		}
-		if len(acc.MusicList) > 310 {
-			acc.MusicList = acc.MusicList[:310]
+		// 限制歌曲数量
+		if len(acc.MusicList) > limit {
+			randomMusics(acc.MusicList, limit)
+			acc.MusicList = acc.MusicList[:limit]
 		}
 		// 刷歌
 		acc.Feedback(client)
@@ -46,4 +52,13 @@ func NcmluTask(phone, passwd string, code int, play bool) {
 	var out bytes.Buffer
 	_ = json.Indent(&out, bs, "", "\t")
 	util.Logger.Debug(out.String())
+}
+
+// randomMusics reshuffle the music slice.
+func randomMusics(musics []int, num int) {
+	rand.Seed(time.Now().UnixNano())
+	for i := 0; i < num; i++ {
+		ri := rand.Intn(len(musics))
+		musics[i], musics[ri] = musics[ri], musics[i]
+	}
 }
