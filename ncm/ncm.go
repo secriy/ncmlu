@@ -6,7 +6,7 @@ import (
 	"io/ioutil"
 	"net/http"
 
-	"github.com/secriy/ncmlu-api/util"
+	"github.com/secriy/ncmlu/util"
 )
 
 type NCMAccount struct {
@@ -133,10 +133,10 @@ func (ac *NCMAccount) UserLevel(client *http.Client) {
 	ac.RemainLoginCount = data.Data.NextLoginCount - data.Data.NowLoginCount
 }
 
-// RecommendList 获取推荐歌单列表
+// RecommendList 获取每日推荐歌单列表
 func (ac *NCMAccount) RecommendList(client *http.Client) {
-	recommendURL := "https://music.163.com/weapi/discovery/recommend/resource?csrf_token=" + ac.Csrf
-	res, err := postRes(recommendURL, fmt.Sprintf(`{"csrf_token":"%s"}`, ac.Csrf), client)
+	_url := "https://music.163.com/weapi/discovery/recommend/resource?csrf_token=" + ac.Csrf
+	res, err := postRes(_url, fmt.Sprintf(`{"csrf_token":"%s"}`, ac.Csrf), client)
 	if err != nil {
 		util.Logger.Error(err)
 		return
@@ -148,6 +148,26 @@ func (ac *NCMAccount) RecommendList(client *http.Client) {
 	}
 	playList := make([]int, len(data.Recommend))
 	for k, v := range data.Recommend {
+		playList[k] = v.ID
+	}
+	ac.PlayList = append(ac.PlayList, playList...)
+}
+
+// PersonalizedList 获取个性化推荐歌单列表
+func (ac *NCMAccount) PersonalizedList(client *http.Client) {
+	_url := "https://music.163.com/weapi/personalized/playlist"
+	res, err := postRes(_url, `{limit:10,total:true,n:1000}`, client)
+	if err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	data := PersonalizedJSON{}
+	if err := json.Unmarshal(res, &data); err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	playList := make([]int, len(data.Result))
+	for k, v := range data.Result {
 		playList[k] = v.ID
 	}
 	ac.PlayList = append(ac.PlayList, playList...)

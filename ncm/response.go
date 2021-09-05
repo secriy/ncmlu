@@ -28,6 +28,13 @@ type RecommendJSON struct {
 	} `json:"recommend"`
 }
 
+type PersonalizedJSON struct {
+	Code   int `json:"code"`
+	Result []struct {
+		ID int `json:"id"`
+	} `json:"result"`
+}
+
 type MusicListJSON struct {
 	PlayList struct {
 		TrackIDs []struct {

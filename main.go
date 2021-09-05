@@ -3,9 +3,9 @@ package main
 import (
 	"time"
 
-	"github.com/secriy/ncmlu-api/config"
-	"github.com/secriy/ncmlu-api/ncm"
-	"github.com/secriy/ncmlu-api/util"
+	"github.com/secriy/ncmlu/config"
+	"github.com/secriy/ncmlu/ncm"
+	"github.com/secriy/ncmlu/util"
 )
 
 func main() {
@@ -13,7 +13,7 @@ func main() {
 	util.InitLogger("info")
 
 	for k, v := range config.Conf.Accounts {
-		execTask(v.Phone, v.Passwd, v.Expired, v.Play)
+		execTask(v.Phone, v.Passwd, v.Expired, !v.OnlySign)
 		if k > 0 && k%20 == 0 {
 			time.Sleep(time.Minute * 5)
 		}

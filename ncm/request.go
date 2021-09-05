@@ -7,7 +7,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/secriy/ncmlu-api/util"
+	"github.com/secriy/ncmlu/util"
 	"golang.org/x/net/publicsuffix"
 )
 
