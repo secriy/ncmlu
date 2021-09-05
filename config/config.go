@@ -10,10 +10,10 @@ var Conf = new(config)
 
 type config struct {
 	Accounts []struct {
-		Phone   string `mapstructure:"phone"`
-		Passwd  string `mapstructure:"passwd"`
-		Expired string `mapstructure:"expired"`
-		Play    bool   `mapstructure:"play"`
+		Phone    string `mapstructure:"phone"`
+		Passwd   string `mapstructure:"passwd"`
+		Expired  string `mapstructure:"expired"`
+		OnlySign bool   `mapstructure:"only_sign"`
 	} `mapstructure:"accounts"`
 }
 
