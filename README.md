@@ -85,13 +85,13 @@ NCM 任务执行脚本，Go 版本。
 5. 输入命令`crontab -e`，在打开的编辑器中填写一行内容（/path_to 同样需要更改）：
 
    ```
-   0 2 * * * bash /path_to/ncmlu.sh
+   0 2 * * * bash /path_to/run.sh
    ```
 
    其中，`0 2 * * *`表示每天的凌晨 2 点 0 分执行，如有需要可以修改，例如：
 
    ```
-   30 5 * * * bash /home/secriy/task/ncmlu.sh
+   30 5 * * * bash /home/secriy/task/run.sh
    ```
 
    即每天的 5 点 30 分执行。
@@ -100,4 +100,4 @@ NCM 任务执行脚本，Go 版本。
 
 ### Linux 下宝塔面板部署
 
-如果有宝塔面板，首先按照上一条**Linux 服务器部署**的前四步操作，最后在宝塔面板的定时任务里创建一个定时任务，执行的指令填写`bash /path_to/ncmlu.sh`。
+如果有宝塔面板，首先按照上一条**Linux 服务器部署**的前四步操作，最后在宝塔面板的定时任务里创建一个定时任务，执行的指令填写`bash /path_to/run.sh`。
