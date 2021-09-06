@@ -16,13 +16,11 @@ NCM 任务执行脚本，Go 版本。
 
 ## Usage
 
-1. 安装 Go 环境
-
-2. 执行`go build`得到可执行文件
-
-3. 将可执行文件（如*ncmlu.exe*）与*config.yaml*文件放在同一目录下
-
-4. 按如下方式配置*config.yaml*文件：
+1. 跳转 [Release](https://github.com/secriy/ncmlu/releases) 页面下载对应操作系统的压缩包，如 Windows 环境下载 ncmlu_xxx_Windows_x86_64.tar.gz
+2. 解压压缩包，得到可执行文件，如 Windows 下的*ncmlu.exe*文件
+3. 创建配置文件*config.yaml*
+4. 将可执行文件（如*ncmlu.exe*）与*config.yaml*文件放在同一目录下
+5. 按如下方式配置*config.yaml*文件：
 
    单账号：
 
@@ -56,8 +54,8 @@ NCM 任务执行脚本，Go 版本。
        only_sign: false
    ```
 
-5.   双击可执行文件（如*ncmlu.exe*）执行脚本
-6.   查看当前目录下的新文件*ncmlu.log*，可以得到输出结果
+6.   双击可执行文件（如*ncmlu.exe*）执行脚本
+7.   查看当前目录下的新文件*ncmlu.log*，可以得到输出结果
 
 ## TODO
 
