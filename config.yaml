@@ -1,5 +1,8 @@
+playlist:
+  - 4234112
+  - 4312424
 accounts:
-- phone: 1342412432
-  passwd: "xxxxxx"
-  expired: 2021-09-06
-  only_sign: false
+  - phone: 1342412432
+    passwd: "xxxxxx"
+    expired: 2022-09-06
+    only_sign: false
