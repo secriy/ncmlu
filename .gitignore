@@ -17,6 +17,5 @@
 
 .idea/
 dist/
-*.yaml
 *.log
 *.bat

@@ -1,0 +1,5 @@
+accounts:
+  - phone: 1342412432
+    passwd: "xxxxxx"
+    expired: 2021-09-06
+    only_sign: false
