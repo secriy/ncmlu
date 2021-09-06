@@ -14,6 +14,7 @@ NCM 任务执行脚本，Go 版本。
 - ✅ 刷播放量
 - ✅ 日志文件
 - ✅ 间隔执行
+- ✅ 自定义歌单
 - 路由
 
 ## Usage
@@ -22,42 +23,63 @@ NCM 任务执行脚本，Go 版本。
 2. 解压压缩包，得到可执行文件，如 Windows 下的*ncmlu.exe*文件
 3. 创建配置文件*config.yaml*
 4. 将可执行文件（如*ncmlu.exe*）与*config.yaml*文件放在同一目录下
-5. 按如下方式配置*config.yaml*文件：
+5. 按如下方式配置*config.yaml*文件，注意空格和缩进：
 
    单账号：
 
    ```
    accounts:
-   - phone: 1111111111 	// 修改为账号的手机号
-     passwd: 'xxxxxxxxx'	// 修改为对应的密码，为防止解析错误，建议使用半角引号包裹；密码支持 32 位小写 MD5 格式，同样支持明文
-     expired: 2021-09-05	// 到期时间，如设置为2021-09-05则当天及之后不会再执行该账号的任务
-     only_sign: false	// 是否只执行签到，设置为true则仅执行签到任务
+     - phone: 1111111111 	// 修改为账号的手机号
+       passwd: 'xxxxxxxxx'	// 修改为对应的密码，为防止解析错误，建议使用半角引号包裹；密码支持 32 位小写 MD5 格式，同样支持明文
+       expired: 2021-09-05	// 到期时间，如设置为2021-09-05则当天及之后不会再执行该账号的任务
+       only_sign: false	// 是否只执行签到，设置为true则仅执行签到任务
    ```
 
    多账号（规则与单账号相同）：
 
    ```
    accounts:
-   - phone: 1111111111
-     passwd: 'xxxxxxxxx'
-     expired: 2021-09-05
-     only_sign: false
-   - phone: 1111111111
-     passwd: 'xxxxxxxxx'
-     expired: 2021-09-05
-     only_sign: false
-   - phone: 1111111111
-     passwd: 'xxxxxxxxx'
-     expired: 2021-09-05
-     only_sign: false
-   - phone: 1111111111
-     passwd: 'xxxxxxxxx'
-     expired: 2021-09-05
-     only_sign: false
+     - phone: 1111111111
+       passwd: 'xxxxxxxxx'
+       expired: 2021-09-05
+       only_sign: false
+     - phone: 1111111111
+       passwd: 'xxxxxxxxx'
+       expired: 2021-09-05
+       only_sign: false
+     - phone: 1111111111
+       passwd: 'xxxxxxxxx'
+       expired: 2021-09-05
+       only_sign: false
+     - phone: 1111111111
+       passwd: 'xxxxxxxxx'
+       expired: 2021-09-05
+       only_sign: false
    ```
 
 6. 双击可执行文件（如*ncmlu.exe*）执行脚本
 7. 查看当前目录下的新文件*ncmlu.log*，可以得到输出结果
+
+### 自定义歌单
+
+注意：使用自定义歌单时，不会获取每日的推荐歌单刷歌，如需取消自定义歌单，删除或注释增加的**playlist**字段即可。
+
+将*config.yaml*配置文件修改为如下格式，多账号同理：
+
+```
+playlist:
+  - 4234112
+  - 4312424
+accounts:
+  - phone: 1342412432
+    passwd: "xxxxxx"
+    expired: 2022-09-06
+    only_sign: false
+```
+
+**playlist**列表填写需要使用的歌单 ID，可指定单个或多个，可以通过下图方式获得：
+
+![image-20210906181506108](README/image-20210906181506108.png)
 
 ## Deployment
 

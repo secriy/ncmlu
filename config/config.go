@@ -9,6 +9,7 @@ import (
 var Conf = new(config)
 
 type config struct {
+	Playlist []int `mapstructure:"playlist"`
 	Accounts []struct {
 		Phone    string `mapstructure:"phone"`
 		Passwd   string `mapstructure:"passwd"`
@@ -22,7 +23,6 @@ func InitConfig() {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
 	viper.AddConfigPath(".")
-	viper.AddConfigPath("$HOME/.config/acgfate/")
 	// Read configuration
 	if err := viper.ReadInConfig(); err != nil {
 		panic(fmt.Errorf("fatal error reading configuration file: %s \n", err))
@@ -31,13 +31,4 @@ func InitConfig() {
 	if err := viper.Unmarshal(Conf); err != nil {
 		panic(fmt.Errorf("unmarshal configuration failed, err: %s \n", err))
 	}
-
-	// viper.WatchConfig()
-	//
-	// viper.OnConfigChange(func(e fsnotify.Event) {
-	// 	fmt.Println("configuration file changed...")
-	// 	if err := viper.Unmarshal(Conf); err != nil {
-	// 		panic(fmt.Errorf("unmarshal configuration failed, err: %s \n", err))
-	// 	}
-	// })
 }
