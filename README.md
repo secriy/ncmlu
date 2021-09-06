@@ -29,7 +29,7 @@ NCM 任务执行脚本，Go 版本。
    ```
    accounts:
    - phone: 1111111111 	// 修改为账号的手机号
-     passwd: xxxxxxxxx	// 修改为对应的密码
+     passwd: 'xxxxxxxxx'	// 修改为对应的密码，为防止解析错误，建议使用半角引号包裹；密码支持 32 位小写 MD5 格式，同样支持明文
      expired: 2021-09-05	// 到期时间，如设置为2021-09-05则当天及之后不会再执行该账号的任务
      only_sign: false	// 是否只执行签到，设置为true则仅执行签到任务
    ```
@@ -39,19 +39,19 @@ NCM 任务执行脚本，Go 版本。
    ```
    accounts:
    - phone: 1111111111
-     passwd: xxxxxxxxx
+     passwd: 'xxxxxxxxx'
      expired: 2021-09-05
      only_sign: false
    - phone: 1111111111
-     passwd: xxxxxxxxx
+     passwd: 'xxxxxxxxx'
      expired: 2021-09-05
      only_sign: false
    - phone: 1111111111
-     passwd: xxxxxxxxx
+     passwd: 'xxxxxxxxx'
      expired: 2021-09-05
      only_sign: false
    - phone: 1111111111
-     passwd: xxxxxxxxx
+     passwd: 'xxxxxxxxx'
      expired: 2021-09-05
      only_sign: false
    ```
