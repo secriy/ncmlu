@@ -16,7 +16,11 @@ func NcmluTask(phone, passwd string, code int, play bool) {
 
 	client := NewClient()
 
-	acc := New(phone, util.MD5Sum(passwd), code)
+	if len(passwd) != 32 {
+		passwd = util.MD5Sum(passwd)
+	}
+
+	acc := New(phone, passwd, code)
 	// 登录
 	acc.Login(client)
 	if acc.Uid == 0 {
