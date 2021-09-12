@@ -1,6 +1,7 @@
 package util
 
 import (
+	"os"
 	"strings"
 
 	"github.com/natefinch/lumberjack"
@@ -20,7 +21,7 @@ func InitLogger(level string) {
 	logger := zap.New(
 		zapcore.NewCore(
 			zapcore.NewConsoleEncoder(encoderConfig),
-			zapcore.AddSync(getLogWriter()),
+			zapcore.NewMultiWriteSyncer(getLogWriter(), zapcore.AddSync(os.Stdout)),
 			logLevel(level),
 		),
 		zap.AddCaller(),
