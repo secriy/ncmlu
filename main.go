@@ -14,8 +14,10 @@ func main() {
 
 	for k, v := range config.Conf.Accounts {
 		execTask(v.Phone, v.Passwd, v.Expired, v.OnlySign, v.Unstable)
-		if k > 0 && k%20 == 0 {
-			time.Sleep(time.Minute * 5)
+		time.Sleep(time.Second * 2)
+		if k > 0 && k%25 == 0 {
+			// sleep 2 minute every 25 accounts
+			time.Sleep(time.Minute * 2)
 		}
 	}
 }
