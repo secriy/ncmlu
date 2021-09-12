@@ -85,7 +85,7 @@ func (ac *NCMAccount) Login(client *http.Client) {
 
 // Sign 签到
 func (ac *NCMAccount) Sign(client *http.Client, tp int) {
-	signURL := "https://music.163.com/weapi/point/dailyTask?" + ac.Csrf
+	signURL := "https://music.163.com/weapi/point/dailyTask?csrf_token=" + ac.Csrf
 	// 签到类型
 	t := "安卓端"
 	if tp == 1 {
@@ -168,6 +168,26 @@ func (ac *NCMAccount) PersonalizedList(client *http.Client) {
 	}
 	playList := make([]int, len(data.Result))
 	for k, v := range data.Result {
+		playList[k] = v.ID
+	}
+	ac.PlayList = append(ac.PlayList, playList...)
+}
+
+// TopPlaylist 获取精选碟歌单
+func (ac *NCMAccount) TopPlaylist(client *http.Client) {
+	_url := "https://music.163.com/weapi/playlist/list"
+	res, err := postRes(_url, `{cat:'全部',order:'hot',limit:10,offset:0,total:true}`, client)
+	if err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	data := TopListJSON{}
+	if err := json.Unmarshal(res, &data); err != nil {
+		util.Logger.Error(err)
+		return
+	}
+	playList := make([]int, len(data.Playlists))
+	for k, v := range data.Playlists {
 		playList[k] = v.ID
 	}
 	ac.PlayList = append(ac.PlayList, playList...)

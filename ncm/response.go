@@ -35,6 +35,12 @@ type PersonalizedJSON struct {
 	} `json:"result"`
 }
 
+type TopListJSON struct {
+	Playlists []struct {
+		ID int `json:"id"`
+	} `json:"playlists"`
+}
+
 type MusicListJSON struct {
 	PlayList struct {
 		TrackIDs []struct {

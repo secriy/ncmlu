@@ -2,7 +2,7 @@
 
 NCM 任务执行脚本，Go 版本。
 
-希望能够点一个 Star ^_^
+希望能够帮忙点一个 Star ^\_^
 
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/secriy/ncmlu/Go)
 ![GitHub](https://img.shields.io/github/license/secriy/ncmlu)
@@ -33,8 +33,9 @@ NCM 任务执行脚本，Go 版本。
    accounts:
      - phone: 1111111111 	# 修改为账号的手机号
        passwd: 'xxxxxxxxx'	# 修改为对应的密码，为防止解析错误，建议使用半角引号包裹；密码支持 32 位小写 MD5 格式，同样支持明文
-       expired: 2021-09-05	# 到期时间，如设置为2021-09-05则当天及之后不会再执行该账号的任务
-       only_sign: false	# 是否只执行签到，设置为true则仅执行签到任务
+       expired: 2021-09-05	# 到期时间，如设置为 2021-09-05 则当天及之后不会再执行该账号的任务
+       only_sign: false	# 是否只执行签到，设置为 true 则仅执行签到任务
+       unstable: false # 不稳定选项，设置为 true 则可以使用非推荐歌单刷歌，增加刷歌成功数量（可能导致日推混乱）
    ```
 
    多账号（规则与单账号相同）：
@@ -45,18 +46,22 @@ NCM 任务执行脚本，Go 版本。
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
        only_sign: false
+       unstable: false
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
        only_sign: false
+       unstable: false
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
        only_sign: false
+       unstable: false
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
        only_sign: false
+       unstable: false
    ```
 
 6. 双击可执行文件（如*ncmlu.exe*）执行脚本

@@ -10,9 +10,9 @@ import (
 	"github.com/secriy/ncmlu/util"
 )
 
-const limit = 410
+const limit = 510
 
-func NcmluTask(phone, passwd string, code int, play bool) {
+func NcmluTask(phone, passwd string, code int, onlySign, unstable bool) {
 	util.InitLogger("info")
 
 	client := NewClient()
@@ -31,11 +31,17 @@ func NcmluTask(phone, passwd string, code int, play bool) {
 	acc.Sign(client, 0) // 安卓端
 	acc.Sign(client, 1) // PC/Web 端
 
-	if play {
+	if !onlySign {
 		// 获取歌单
 		if config.Conf.Playlist == nil || len(config.Conf.Playlist) == 0 {
 			// 获取个性推荐推荐歌单
 			acc.PersonalizedList(client)
+
+			if unstable {
+				// 获取非推荐歌单
+				acc.TopPlaylist(client)
+			}
+
 			// 获取全部歌曲
 			for _, v := range acc.PlayList {
 				acc.Musics(client, v)

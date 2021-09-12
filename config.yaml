@@ -1,3 +1,4 @@
+level: info
 playlist:
   - 4234112
   - 4312424
@@ -6,3 +7,4 @@ accounts:
     passwd: "xxxxxx"
     expired: 2022-09-06
     only_sign: false
+    unstable: true
