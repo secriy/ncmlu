@@ -9,7 +9,8 @@ import (
 var Conf = new(config)
 
 type config struct {
-	Playlist []int `mapstructure:"playlist"`
+	Level    string `mapstructure:"level"`
+	Playlist []int  `mapstructure:"playlist"`
 	Accounts []struct {
 		Phone    string `mapstructure:"phone"`
 		Passwd   string `mapstructure:"passwd"`
