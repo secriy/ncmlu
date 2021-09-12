@@ -15,6 +15,7 @@ type config struct {
 		Passwd   string `mapstructure:"passwd"`
 		Expired  string `mapstructure:"expired"`
 		OnlySign bool   `mapstructure:"only_sign"`
+		Unstable bool   `mapstructure:"unstable"`
 	} `mapstructure:"accounts"`
 }
 
