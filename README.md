@@ -2,6 +2,8 @@
 
 NCM 任务执行脚本，Go 版本。
 
+希望能够点一个 Star ^_^
+
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/secriy/ncmlu/Go)
 ![GitHub](https://img.shields.io/github/license/secriy/ncmlu)
 
