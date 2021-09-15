@@ -7,7 +7,7 @@ NCM 任务执行脚本，Go 版本。
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/secriy/ncmlu/Go)
 ![GitHub](https://img.shields.io/github/license/secriy/ncmlu)
 
-## Implements
+## TODOs
 
 - ✅ 登录
 - ✅ 签到
@@ -130,3 +130,13 @@ accounts:
 ### Linux 下宝塔面板部署
 
 如果有宝塔面板，首先按照上一条**Linux 服务器部署**的前四步操作，最后在宝塔面板的定时任务里创建一个定时任务，执行的指令填写`bash /path_to/run.sh`。
+
+## 免责声明
+
+本项目仅用于个人用途，完全开源。本人不提供代挂业务，未使用该项目盈利。请勿向他人提供个人账号、密码（包括密码的 MD5 值），向不受信任的第三方提供个人信息导致的问题皆与本人无关。
+
+本项目使用 MIT 开源协议，使用本项目进行盈利、二次开发等导致的风险及法律问题与本项目无关。
+
+所有网易云音乐相关字样版权皆属于网易公司，勿用于商业及非法用途，如产生法律纠纷与本项目无关。
+
+如果该项目侵犯了您的权益，请通过邮箱 secriyal@gmail.com 联系本人及时处理。
