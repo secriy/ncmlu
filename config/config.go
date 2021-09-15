@@ -9,8 +9,16 @@ import (
 var Conf = new(config)
 
 type config struct {
-	Level    string `mapstructure:"level"`
-	Playlist []int  `mapstructure:"playlist"`
+	Level  string `mapstructure:"level"`
+	Catnap struct {
+		Number   int `mapstructure:"number"`
+		Duration int `mapstructure:"duration"`
+	} `mapstructure:"catnap"`
+	Sleep struct {
+		Number   int `mapstructure:"number"`
+		Duration int `mapstructure:"duration"`
+	} `mapstructure:"sleep"`
+	Playlist []int `mapstructure:"playlist"`
 	Accounts []struct {
 		Phone    string `mapstructure:"phone"`
 		Passwd   string `mapstructure:"passwd"`

@@ -12,12 +12,19 @@ func main() {
 	config.InitConfig()
 	util.InitLogger(config.Conf.Level)
 
+	catnap := config.Conf.Catnap
+	sleep := config.Conf.Sleep
+
 	for k, v := range config.Conf.Accounts {
 		execTask(v.Phone, v.Passwd, v.Expired, v.OnlySign, v.Unstable)
-		time.Sleep(time.Second * 2)
-		if k > 0 && k%25 == 0 {
-			// sleep 2 minute every 25 accounts
-			time.Sleep(time.Minute * 2)
+		if k > 0 && k%sleep.Number == 0 {
+			// sleep
+			time.Sleep(time.Minute * time.Duration(sleep.Duration))
+		} else if k > 0 && k%catnap.Number == 0 {
+			// catnap
+			time.Sleep(time.Minute * time.Duration(catnap.Duration))
+		} else {
+			time.Sleep(time.Second * 2)
 		}
 	}
 }

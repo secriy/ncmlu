@@ -1,4 +1,10 @@
 level: info
+catnap:
+  number: 25
+  duration: 2 # minutes
+sleep:
+  number: 100
+  duration: 30 # minutes
 playlist:
   - 4234112
   - 4312424
