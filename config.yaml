@@ -1,9 +1,10 @@
 level: info
+interval: 0 # seconds
 catnap:
-  number: 25
+  number: -1
   duration: 2 # minutes
 sleep:
-  number: 100
+  number: -1
   duration: 30 # minutes
 playlist:
   - 4234112
@@ -13,4 +14,4 @@ accounts:
     passwd: "xxxxxx"
     expired: 2022-09-06
     only_sign: false
-    unstable: true
+    unstable: false

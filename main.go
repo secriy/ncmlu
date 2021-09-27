@@ -15,16 +15,22 @@ func main() {
 	catnap := config.Conf.Catnap
 	sleep := config.Conf.Sleep
 
+	length := len(config.Conf.Accounts)
+
 	for k, v := range config.Conf.Accounts {
 		execTask(v.Phone, v.Passwd, v.Expired, v.OnlySign, v.Unstable)
-		if k > 0 && k%sleep.Number == 0 {
+		if k == length-1 {
+			// break after execute last one
+			break
+		}
+		if k > 0 && sleep.Number > 0 && sleep.Duration > 0 && k%sleep.Number == 0 {
 			// sleep
 			time.Sleep(time.Minute * time.Duration(sleep.Duration))
-		} else if k > 0 && k%catnap.Number == 0 {
+		} else if k > 0 && catnap.Number > 0 && catnap.Duration > 0 && k%catnap.Number == 0 {
 			// catnap
 			time.Sleep(time.Minute * time.Duration(catnap.Duration))
 		} else {
-			time.Sleep(time.Second * 2)
+			time.Sleep(time.Second * time.Duration(config.Conf.Interval))
 		}
 	}
 }
