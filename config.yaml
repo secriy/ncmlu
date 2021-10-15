@@ -1,10 +1,18 @@
 level: info
+interval: 0 # seconds
+catnap:
+  number: -1
+  duration: 2 # minutes
+sleep:
+  number: -1
+  duration: 30 # minutes
 playlist:
   - 4234112
   - 4312424
 accounts:
   - phone: 1342412432
     passwd: "xxxxxx"
+    code: 86
     expired: 2022-09-06
     only_sign: false
-    unstable: true
+    unstable: false

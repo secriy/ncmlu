@@ -12,17 +12,31 @@ func main() {
 	config.InitConfig()
 	util.InitLogger(config.Conf.Level)
 
+	catnap := config.Conf.Catnap
+	sleep := config.Conf.Sleep
+
+	length := len(config.Conf.Accounts)
+
 	for k, v := range config.Conf.Accounts {
-		execTask(v.Phone, v.Passwd, v.Expired, v.OnlySign, v.Unstable)
-		time.Sleep(time.Second * 2)
-		if k > 0 && k%25 == 0 {
-			// sleep 2 minute every 25 accounts
-			time.Sleep(time.Minute * 2)
+		execTask(v.Phone, v.Passwd, v.Code, v.Expired, v.OnlySign, v.Unstable)
+
+		if k == length-1 {
+			// break after execute last one
+			break
+		}
+		if k > 0 && sleep.Number > 0 && sleep.Duration > 0 && k%sleep.Number == 0 {
+			// sleep
+			time.Sleep(time.Minute * time.Duration(sleep.Duration))
+		} else if k > 0 && catnap.Number > 0 && catnap.Duration > 0 && k%catnap.Number == 0 {
+			// catnap
+			time.Sleep(time.Minute * time.Duration(catnap.Duration))
+		} else {
+			time.Sleep(time.Second * time.Duration(config.Conf.Interval))
 		}
 	}
 }
 
-func execTask(phone, passwd, expired string, onlySign, unstable bool) {
+func execTask(phone, passwd string, code int, expired string, onlySign, unstable bool) {
 	t, err := time.Parse("2006-01-02", expired)
 	if err != nil {
 		util.Logger.Errorf("%s expired time parsing error: %s", phone, err)
@@ -31,5 +45,9 @@ func execTask(phone, passwd, expired string, onlySign, unstable bool) {
 	if t.Before(time.Now()) {
 		return
 	}
-	ncm.NcmluTask(phone, passwd, 86, onlySign, unstable)
+	if code == 0 {
+		// set default country code
+		code = 86
+	}
+	ncm.NcmluTask(phone, passwd, code, onlySign, unstable)
 }
