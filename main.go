@@ -45,5 +45,9 @@ func execTask(phone, passwd string, code int, expired string, onlySign, unstable
 	if t.Before(time.Now()) {
 		return
 	}
+	if code == 0 {
+		// set default country code
+		code = 86
+	}
 	ncm.NcmluTask(phone, passwd, code, onlySign, unstable)
 }
