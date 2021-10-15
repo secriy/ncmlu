@@ -17,7 +17,6 @@ NCM 任务执行脚本，Go 版本。
 - ✅ 日志文件
 - ✅ 间隔执行
 - ✅ 自定义歌单
-- 路由
 
 ## Usage
 
@@ -29,43 +28,40 @@ NCM 任务执行脚本，Go 版本。
 
    单账号：
 
-   ```
+   ```yaml
    accounts:
      - phone: 1111111111 	# 修改为账号的手机号
        passwd: 'xxxxxxxxx'	# 修改为对应的密码，为防止解析错误，建议使用半角引号包裹；密码支持 32 位小写 MD5 格式，同样支持明文
+       code: 86            # 国家码，如省略本字段则默认使用中国的 86 
        expired: 2021-09-05	# 到期时间，如设置为 2021-09-05 则当天及之后不会再执行该账号的任务
-       only_sign: false	# 是否只执行签到，设置为 true 则仅执行签到任务
-       unstable: false # 不稳定选项，设置为 true 则可以使用非推荐歌单刷歌，增加刷歌成功数量（可能导致日推混乱）
+       only_sign: false	# 是否只执行签到，设置为 true 则仅执行签到任务（省略则为 false）
+       unstable: false     # 不稳定选项，设置为 true 则可以使用非推荐歌单刷歌，增加刷歌成功数量（可能导致日推风格改变，省略则为 false）
    ```
 
    多账号（规则与单账号相同）：
 
-   ```
+   ```yaml
    accounts:
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
-       only_sign: false
-       unstable: false
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
-       only_sign: false
-       unstable: false
+       only_sign: true
+       unstable: true
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
-       only_sign: false
-       unstable: false
+       only_sign: true
      - phone: 1111111111
        passwd: 'xxxxxxxxx'
        expired: 2021-09-05
-       only_sign: false
-       unstable: false
+       unstable: true
    ```
 
-6. 双击可执行文件（如*ncmlu.exe*）执行脚本
-7. 查看当前目录下的新文件*ncmlu.log*，可以得到输出结果
+7. 双击可执行文件（如*ncmlu.exe*）执行脚本
+8. 查看当前目录下的新文件*ncmlu.log*，可以得到输出结果
 
 ### 自定义歌单
 
@@ -73,7 +69,7 @@ NCM 任务执行脚本，Go 版本。
 
 将*config.yaml*配置文件修改为如下格式，多账号同理：
 
-```
+```yaml
 playlist:
   - 4234112
   - 4312424
@@ -87,6 +83,39 @@ accounts:
 **playlist**列表填写需要使用的歌单 ID，可指定单个或多个，可以通过下图方式获得：
 
 ![image-20210906181506108](README/image-20210906181506108.png)
+
+### 设置睡眠和休眠
+
+由于大量账号的快速执行会导致 IP 被封禁、频繁访问等后果，因此脚本提供自定义执行间隔（interval），以及短时睡眠（catnap）和长时间睡眠（sleep）的选项。
+
+- interval: 每个账号之间的执行间隔，设置为正整数有效（单位：秒）
+- catnap: 短期睡眠
+    - number: 每执行 number 个账号后就进行睡眠
+    - duration: 短时间睡眠的时间（单位：分钟）
+- sleep: 长时间睡眠
+    - number: 每执行 number 个账号后就进行睡眠
+    - duration: 长时间睡眠的时间（单位：分钟）
+
+如不需要睡眠省略字段即可，或者将 number 或 duration 设置为 0 或负数，就不会应用睡眠。
+
+示例：
+
+```yaml
+interval: 3 # 单位：秒
+catnap:
+  number: 20
+  duration: 2 # 单位：分钟
+sleep:
+  number: 500
+  duration: 30 # 单位：分钟
+accounts:
+  - phone: 1342412432
+    passwd: "xxxxxx"
+    code: 86
+    expired: 2022-09-06
+    only_sign: false
+    unstable: false
+```
 
 ## Deployment
 
@@ -139,4 +168,4 @@ accounts:
 
 所有网易云音乐相关字样版权皆属于网易公司，勿用于商业及非法用途，如产生法律纠纷与本项目无关。
 
-如果该项目侵犯了您的权益，请通过邮箱 secriyal@gmail.com 联系本人及时处理。
+如果该项目侵犯了您的权益，请通过邮箱 secriyal@gmail.com 联系本人及时处理，我们会第一时间为您处理。
