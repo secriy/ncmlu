@@ -12,6 +12,7 @@ playlist:
 accounts:
   - phone: 1342412432
     passwd: "xxxxxx"
+    code: 86
     expired: 2022-09-06
     only_sign: false
     unstable: false

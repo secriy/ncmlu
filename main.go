@@ -18,7 +18,8 @@ func main() {
 	length := len(config.Conf.Accounts)
 
 	for k, v := range config.Conf.Accounts {
-		execTask(v.Phone, v.Passwd, v.Expired, v.OnlySign, v.Unstable)
+		execTask(v.Phone, v.Passwd, v.Code, v.Expired, v.OnlySign, v.Unstable)
+
 		if k == length-1 {
 			// break after execute last one
 			break
@@ -35,7 +36,7 @@ func main() {
 	}
 }
 
-func execTask(phone, passwd, expired string, onlySign, unstable bool) {
+func execTask(phone, passwd string, code int, expired string, onlySign, unstable bool) {
 	t, err := time.Parse("2006-01-02", expired)
 	if err != nil {
 		util.Logger.Errorf("%s expired time parsing error: %s", phone, err)
@@ -44,5 +45,5 @@ func execTask(phone, passwd, expired string, onlySign, unstable bool) {
 	if t.Before(time.Now()) {
 		return
 	}
-	ncm.NcmluTask(phone, passwd, 86, onlySign, unstable)
+	ncm.NcmluTask(phone, passwd, code, onlySign, unstable)
 }

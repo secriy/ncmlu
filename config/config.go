@@ -23,6 +23,7 @@ type config struct {
 	Accounts []struct {
 		Phone    string `mapstructure:"phone"`     // 手机号
 		Passwd   string `mapstructure:"passwd"`    // 密码
+		Code     int    `mapstructure:"code"`      // 区号
 		Expired  string `mapstructure:"expired"`   // 任务过期时间
 		OnlySign bool   `mapstructure:"only_sign"` // 只进行签到
 		Unstable bool   `mapstructure:"unstable"`  // 不稳定刷歌
